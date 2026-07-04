@@ -1,0 +1,43 @@
+.dashboard{
+    min-height:100vh;
+    background:#0f172a;
+    color:white;
+    padding:40px;
+}
+
+.stats{
+    display:flex;
+    gap:25px;
+    margin:40px 0;
+}
+
+.card{
+    flex:1;
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.card p{
+    font-size:40px;
+    color:#38bdf8;
+    margin-top:15px;
+}
+
+.recent{
+    margin-top:40px;
+}
+
+.order{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-top:15px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.order span{
+    color:#22c55e;
+}

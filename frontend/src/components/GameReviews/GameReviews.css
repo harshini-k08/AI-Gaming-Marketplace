@@ -1,0 +1,26 @@
+.reviews{
+    margin-top:50px;
+}
+
+.review-card{
+
+    background:#1e293b;
+
+    padding:20px;
+
+    margin-top:20px;
+
+    border-radius:15px;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.review-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 8px 20px rgba(56,189,248,.3);
+
+}

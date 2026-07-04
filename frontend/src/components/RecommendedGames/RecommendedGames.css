@@ -1,0 +1,14 @@
+.recommended-games{
+    margin-top:70px;
+}
+
+.recommended-games h2{
+    color:white;
+    margin-bottom:25px;
+}
+
+.recommended-grid{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+}

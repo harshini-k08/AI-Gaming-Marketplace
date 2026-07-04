@@ -1,0 +1,20 @@
+.games-page{
+    background:#0f172a;
+    min-height:100vh;
+    padding:40px;
+}
+
+.games-page h1{
+    color:white;
+    text-align:center;
+    margin-bottom:30px;
+    font-size:42px;
+}
+
+.games-grid{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-top:40px;
+}

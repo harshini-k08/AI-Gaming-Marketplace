@@ -1,0 +1,18 @@
+.featured{
+    background:#0f172a;
+    padding:80px 60px;
+}
+
+.featured h1{
+    color:white;
+    margin-bottom:40px;
+    text-align:center;
+    font-size:40px;
+}
+
+.game-container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}

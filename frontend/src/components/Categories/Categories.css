@@ -1,0 +1,39 @@
+.categories {
+  background: #111827;
+  padding: 70px 40px;
+  color: white;
+}
+
+.categories h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 36px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background: #1e293b;
+  padding: 30px;
+  text-align: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  background: #334155;
+}
+
+.category-card span {
+  font-size: 40px;
+}
+
+.category-card h3 {
+  margin-top: 15px;
+}
