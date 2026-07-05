@@ -8,20 +8,20 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 def ask_ai(message):
+    try:
+        cursor = connection.cursor()
 
-    cursor = connection.cursor()
+        cursor.execute("""
+            SELECT title, category, price, rating, description
+            FROM games
+        """)
 
-    cursor.execute("""
-        SELECT title, category, price, rating, description
-        FROM games
-    """)
+        games = cursor.fetchall()
 
-    games = cursor.fetchall()
+        game_list = ""
 
-    game_list = ""
-
-    for game in games:
-        game_list += f"""
+        for game in games:
+            game_list += f"""
 Title: {game['title']}
 Category: {game['category']}
 Price: ₹{game['price']}
@@ -30,7 +30,7 @@ Description: {game['description']}
 
 """
 
-    prompt = f"""
+        prompt = f"""
 You are an AI assistant for an AI Gaming Marketplace.
 
 Recommend ONLY games from the following database.
@@ -48,6 +48,10 @@ If the user asks for:
 - Explain why the game is recommended.
 """
 
-    response = model.generate_content(prompt)
+        response = model.generate_content(prompt)
 
-    return response.text
+        return response.text
+
+    except Exception as e:
+        print(e)
+        return "Unable to connect to AI."
