@@ -1,120 +1,162 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import games from "../data/games";
+import "./Recommendations.css";
 
 function Recommendations() {
 
-  const [genre, setGenre] = useState("");
+    const navigate = useNavigate();
 
-  const [budget, setBudget] = useState("");
+    const [genre, setGenre] = useState("");
+    const [budget, setBudget] = useState("");
+    const [rating, setRating] = useState("");
 
-  const [rating, setRating] = useState("");
+    const [filteredGames, setFilteredGames] = useState(games);
 
-  const filteredGames = games.filter(game =>
+    const findRecommendations = () => {
 
-      (genre === "" || game.category === genre) &&
+        let result = [...games];
 
-      (budget === "" || game.price <= Number(budget)) &&
+        if (genre) {
+            result = result.filter(
+                (game) =>
+                    game.category.toLowerCase() ===
+                    genre.toLowerCase()
+            );
+        }
 
-      (rating === "" || game.rating >= Number(rating))
+        if (budget) {
+            result = result.filter(
+                (game) =>
+                    game.price <= Number(budget)
+            );
+        }
 
-  );
+        if (rating) {
+            result = result.filter(
+                (game) =>
+                    game.rating >= Number(rating)
+            );
+        }
 
-  return (
+        setFilteredGames(result);
+    };
 
-    <div
-      style={{
-        background:"#0f172a",
-        color:"white",
-        minHeight:"100vh",
-        padding:"40px"
-      }}
-    >
+    return (
+        <div className="recommend-page">
 
-      <h1>🤖 AI Game Recommendation</h1>
+            <h1>🤖 AI Game Recommendation</h1>
 
-      <br/>
+            <p className="subtitle">
+                Find your perfect game based on your preferences.
+            </p>
 
-      <select
-        value={genre}
-        onChange={(e)=>setGenre(e.target.value)}
-      >
+            <div className="filter-card">
 
-        <option value="">Select Genre</option>
+                <select
+                    value={genre}
+                    onChange={(e) => setGenre(e.target.value)}
+                >
+                    <option value="">🎮 Select Genre</option>
 
-        <option>Action</option>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Racing">Racing</option>
 
-        <option>RPG</option>
+                </select>
 
-        <option>Racing</option>
+                <input
+                    type="number"
+                    placeholder="💰 Maximum Budget"
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                />
 
-        <option>Adventure</option>
+                <input
+                    type="number"
+                    step="0.1"
+                    placeholder="⭐ Minimum Rating"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                />
 
-      </select>
+                <button
+                    onClick={findRecommendations}
+                >
+                    🔍 Find Recommendations
+                </button>
 
-      <br/><br/>
+            </div>
 
-      <input
+            <h2>Recommended Games</h2>
 
-        type="number"
+            <div className="game-grid">
 
-        placeholder="Maximum Budget"
+                {filteredGames.length === 0 ? (
 
-        value={budget}
+                    <h2>No games found 😔</h2>
 
-        onChange={(e)=>setBudget(e.target.value)}
+                ) : (
 
-      />
+                    filteredGames.map((game) => (
 
-      <br/><br/>
+                        <div
+                            className="game-card"
+                            key={game.id}
+                        >
 
-      <input
+                            <img
+                                src={game.image}
+                                alt={game.title}
+                            />
 
-        type="number"
+                            <div className="game-info">
 
-        placeholder="Minimum Rating"
+                                <h3>{game.title}</h3>
 
-        value={rating}
+                                <p>{game.description}</p>
 
-        onChange={(e)=>setRating(e.target.value)}
+                                <div className="details">
 
-      />
+                                    <span>
+                                        🎮 {game.category}
+                                    </span>
 
-      <hr/>
+                                    <span>
+                                        ⭐ {game.rating}
+                                    </span>
 
-      <h2>Recommended Games</h2>
+                                </div>
 
-      {
+                                <div className="bottom">
 
-        filteredGames.map(game=>(
+                                    <h4>
+                                        ₹{game.price}
+                                    </h4>
 
-          <div
-            key={game.id}
-            style={{
-              marginBottom:"20px",
-              background:"#1e293b",
-              padding:"20px",
-              borderRadius:"10px"
-            }}
-          >
+                                    <button
+                                        className="buy-btn"
+                                        onClick={() => navigate(`/game/${game.id}`)}
+                                    >
+                                        Buy →
+                                    </button>
 
-            <h3>{game.title}</h3>
+                                </div>
 
-            <p>Category : {game.category}</p>
+                            </div>
 
-            <p>Price : ₹{game.price}</p>
+                        </div>
 
-            <p>⭐ {game.rating}</p>
+                    ))
 
-          </div>
+                )}
 
-        ))
+            </div>
 
-      }
-
-    </div>
-
-  );
-
+        </div>
+    );
 }
 
 export default Recommendations;
